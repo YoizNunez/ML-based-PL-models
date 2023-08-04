@@ -1,1 +1,6 @@
-This repository contains the Python code for the Thesis: "On machine Learning Techniques Toward Path Loss Modeling in 5G and Beyond Wireless Systems"
+This repository contains the Python code (version 0.1) for the Thesis: "On machine Learning Techniques Toward Path Loss Modeling in 5G and Beyond Wireless Systems"
+
+Chapter 3: mmWave Indoor Environment.
+Chapter 4: mmWave Outdoor Environment.
+Chapter 5: Macrocell coverage sub-6 GHz.
+Chapter 6: V2I & V2V
