@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -15,20 +9,10 @@ import seaborn as sns
 from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import math
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.neural_network import MLPRegressor
-from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor
 
 from sklearn.model_selection import KFold
@@ -43,48 +27,41 @@ import matplotlib.pyplot as plt
 import tabulate
 from tabulate import tabulate
 
-torch.manual_seed(0)
-np.random.seed(0)
-
 import random
 random.seed(0)
-
 
 #%%
 """
 Reading the CSV files
 """
 #SC1
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_750_Vegetation.csv"
+path=r"SC1_750.csv"
 df_SC1_750 = pd.read_csv(path)
 df_SC1_750.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_2500_Vegetation.csv"
+path=r"SC1_2500.csv"
 df_SC1_2500 = pd.read_csv(path)
 df_SC1_2500.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_3500_Vegetation.csv"
+path=r"SC1_3500.csv"
 df_SC1_3500 = pd.read_csv(path)
 df_SC1_3500.head()
 
 #SC2
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_750_Vegetation.csv"
+path=r"SC2_750.csv"
 df_SC2_750 = pd.read_csv(path)
 df_SC2_750.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_2500_Vegetation.csv"
+path=r"SC2_2500.csv"
 df_SC2_2500 = pd.read_csv(path)
 df_SC2_2500.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_3500_Vegetation.csv"
+path=r"SC2_3500.csv"
 df_SC2_3500 = pd.read_csv(path)
 df_SC2_3500.head()
 
-
 #%%
-
 #Selection of samples for training and testing
-
 #SC1
 samples_test = 1700 #to take 700 sample on the testing set
 samples_train_SC1_750 = len(df_SC1_750)  - samples_test
@@ -138,7 +115,6 @@ ax.scatter(df_test_SC1_3500['Long'], df_test_SC1_3500['Lat'], c='orange', s=20)
 """
 Create Input and Output Data
 """
-
 X_train = df_train.iloc[:, [12,5,7,10,4,15,9,8,18,20,19,16,17,13]] #Predictors
 y_train = df_train.iloc[:, [21]]
 
