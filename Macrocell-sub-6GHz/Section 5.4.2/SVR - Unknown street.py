@@ -1,33 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from tqdm.notebook import tqdm
-import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import math
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.neural_network import MLPRegressor
 from sklearn.svm import SVR
 
 from sklearn.model_selection import KFold
@@ -41,51 +19,43 @@ import matplotlib.pyplot as plt
 
 import tabulate
 from tabulate import tabulate
-
-torch.manual_seed(0)
 np.random.seed(0)
-
 import random
 random.seed(0)
 
 #%%
-
 """
 Reading the CSV files
 """
 
 #SC1
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_750_Vegetation.csv"
+path=r"SC1_750.csv"
 df_SC1_750 = pd.read_csv(path)
 df_SC1_750.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_2500_Vegetation.csv"
+path=r"SC1_2500.csv"
 df_SC1_2500 = pd.read_csv(path)
 df_SC1_2500.head()
 
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_3500_Vegetation.csv"
+path=r"SC1_3500.csv"
 df_SC1_3500 = pd.read_csv(path)
 df_SC1_3500.head()
 
 #SC2
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_750_Vegetation.csv"
+path=r"SC2_750.csv"
 df_SC2_750 = pd.read_csv(path)
 df_SC2_750.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_2500_Vegetation.csv"
+path=r"SC2_2500.csv"
 df_SC2_2500 = pd.read_csv(path)
 df_SC2_2500.head()
 
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_3500_Vegetation.csv"
+path=r"SC2_3500.csv"
 df_SC2_3500 = pd.read_csv(path)
 df_SC2_3500.head()
 
 #%%
-
 #Selection of samples for training and testing
-
 #SC1
 samples_test = 1700 
 samples_train_SC1_750 = len(df_SC1_750)  - samples_test
@@ -127,19 +97,15 @@ fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_750['Long'], df_train_SC1_750['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_750['Long'], df_test_SC1_750['Lat'], c='blue', s=20)
 
-
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_2500['Long'], df_train_SC1_2500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_2500['Long'], df_test_SC1_2500['Lat'], c='green', s=20)
-
 
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_3500['Long'], df_train_SC1_3500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_3500['Long'], df_test_SC1_3500['Lat'], c='orange', s=20)
 
-
 #%%
-
 """
 Create Input and Output Data
 """
@@ -167,20 +133,15 @@ y_test = scaler.transform(y_test)
 y_train, y_test = y_train.astype(float), y_test.astype(float),
 
 svr_regressor =  SVR(kernel='rbf', C=100, epsilon=0.0001,gamma=0.002)
-    
 svr_regressor.fit(X_train,np.ravel(y_train))    
-
 
 #TRAINING
 y_pred = svr_regressor.predict(X_train)
-
 y_pred = y_pred.reshape(-1,1)
-
 y_pred_desn = scaler.inverse_transform(y_pred)
 y_target_desn = scaler.inverse_transform(y_train)
 
 pl_pred=y_pred_desn
-
 df_train['pl_pred']=pl_pred
 
 df_train_735=df_train.loc[df_train['freq'] == 750]
@@ -216,7 +177,6 @@ mean_3500=np.mean(df_train_3500['pl'])
 data = [['735',RMSE_735, R2_735,variance_735,mean_735],['2450',RMSE_2540, R2_2540,variance_2540,mean_2540],['3500',RMSE_3500, R2_3500,variance_3500,mean_3500]]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','Variance [dB]','Mean [dB]']))
 
-
 MSE = np.square(np.subtract(y_target_desn,y_pred_desn)).mean() #RMSE
 RMSE_train = math.sqrt(MSE)
 
@@ -236,7 +196,6 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = svr_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
@@ -244,7 +203,6 @@ y_pred_test = y_pred_test.reshape(-1,1)
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 pl_pred_test=y_pred_desn_test
 
@@ -284,10 +242,8 @@ mean_735=np.mean(df_test_735['pl'])
 mean_2540=np.mean(df_test_2540['pl'])
 mean_3500=np.mean(df_test_3500['pl'])
 
-
 data = [['750',RMSE_735, R2_735,R2_oos_735,variance_735,mean_735],['2500',RMSE_2540, R2_2540,R2_oos_2540,variance_2540,mean_2540],['3500',RMSE_3500, R2_3500,R2_oos_3500,variance_3500,mean_3500]]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','R^2 OOS','Variance [dB]','Mean[dB]']))
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -303,10 +259,8 @@ plt.savefig('R2_macrocell.eps',format='eps',dpi=1200)
 plt.show()
 plt.close()
 
-
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
-
 
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
@@ -332,19 +286,13 @@ print(tabulate(data, headers=["","RMSE ",'MAPE [%]','SD','R^2']))
 data = [['Testing set',RMSE_test, MAPE_test, SD_test,R2_test]]
 print(tabulate(data, headers=["","",'','','']))
 
-
 #%%
-
 """
 Applying Cross-Validation
 """
-
 epsilon = [0.0001,0.001,0.01] #np.arange(2, 13, 1) #define maximum depth
-    
 gamma = [0.0002,0.002,0.02]  #define minumum samples leaf
-
 max_iter = len(epsilon)*len(gamma)  #number of iteractions
-
 iteration = list(range(1,max_iter+1))
 
 C = np.arange(0, 105, 5) #number of trees
