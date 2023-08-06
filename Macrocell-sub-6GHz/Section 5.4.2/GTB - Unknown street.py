@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -14,12 +8,6 @@ import pandas as pd
 import seaborn as sns
 from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
 
 from sklearn.preprocessing import MinMaxScaler    
 from sklearn.model_selection import train_test_split
@@ -52,36 +40,33 @@ Reading the CSV files
 """
 
 #SC1
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_750_Vegetation.csv"
+path=r"SC1_750.csv"
 df_SC1_750 = pd.read_csv(path)
 df_SC1_750.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_2500_Vegetation.csv"
+path=r"SC1_2500.csv"
 df_SC1_2500 = pd.read_csv(path)
 df_SC1_2500.head()
 
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC1_3500_Vegetation.csv"
+path=r"SC1_3500.csv"
 df_SC1_3500 = pd.read_csv(path)
 df_SC1_3500.head()
 
 #SC2
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_750_Vegetation.csv"
+path=r"SC2_750.csv"
 df_SC2_750 = pd.read_csv(path)
 df_SC2_750.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_2500_Vegetation.csv"
+path=r"SC2_2500.csv"
 df_SC2_2500 = pd.read_csv(path)
 df_SC2_2500.head()
 
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Final Dataset SC1\with std\SC2_3500_Vegetation.csv"
+path=r"SC2_3500.csv"
 df_SC2_3500 = pd.read_csv(path)
 df_SC2_3500.head()
 
 
 #%%
-
 #Selection of samples for training and testing
 
 #SC1
@@ -125,18 +110,15 @@ fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_750['Long'], df_train_SC1_750['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_750['Long'], df_test_SC1_750['Lat'], c='blue', s=20)
 
-
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_2500['Long'], df_train_SC1_2500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_2500['Long'], df_test_SC1_2500['Lat'], c='green', s=20)
-
 
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_3500['Long'], df_train_SC1_3500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_3500['Long'], df_test_SC1_3500['Lat'], c='orange', s=20)
 
 #%%
-
 """
 Create Input and Output Data
 """
