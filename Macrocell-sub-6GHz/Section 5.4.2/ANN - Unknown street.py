@@ -1,29 +1,14 @@
 # -*- coding: utf-8 -*-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
+    
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import math
-from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.neural_network import MLPRegressor
-
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 
@@ -35,19 +20,14 @@ import matplotlib.pyplot as plt
 
 import tabulate
 from tabulate import tabulate
-
-torch.manual_seed(0)
 np.random.seed(0)
-
 import random
 random.seed(0)
-
 
 #%%
 """
 Reading the CSV files
 """
-
 path=r"SC1_750.csv"
 df_SC1_750 = pd.read_csv(path)
 df_SC1_750.head()
@@ -74,7 +54,6 @@ df_SC2_3500.head()
 
 #%%
 #Selection of samples for training and testing
-
 #SC1
 samples_test = 1700 #to take 700 sample on the testing set
 samples_train_SC1_750 = len(df_SC1_750)  - samples_test
@@ -124,18 +103,15 @@ fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_3500['Long'], df_train_SC1_3500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_3500['Long'], df_test_SC1_3500['Lat'], c='orange', s=20)
 
-                  
 #%%
 """
 Create Input and Output Data
 """
-
 X_train = df_train.iloc[:, [12,5,7,10,4,15,9,8,18,20,19,16,17,13]] #Predictors
 y_train = df_train.iloc[:, [21]] #PL
 
 X_test = df_test.iloc[:, [12,5,7,10,4,15,9,8,18,20,19,16,17,13]] 
 y_test = df_test.iloc[:, [21]]
-
 
 #normalize inputs
 scaler = StandardScaler()
@@ -164,7 +140,6 @@ mlp_regressor = MLPRegressor(hidden_layer_sizes=19,
                                  early_stopping=True)    
     
 mlp_regressor.fit(X_train,np.ravel(y_train))    
-
 
 #TRAINING
 y_pred = mlp_regressor.predict(X_train)
@@ -231,7 +206,6 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = mlp_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
@@ -239,7 +213,6 @@ y_pred_test = y_pred_test.reshape(-1,1)
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 pl_pred_test=y_pred_desn_test
 
@@ -268,7 +241,6 @@ R2_3500= r2_score(df_test_3500['pl'],df_test_3500['pl_pred']) #R2
 R2_oos_3500 = 1 - np.sum((df_test_3500['pl'] - df_test_3500['pl_pred'])**2) / np.sum((df_train_3500['pl'].mean() - df_test_3500['pl'])**2)
 
 #Testing
-
 #variance
 variance_735 = np.sum((df_test_735['pl'] - df_test_735['pl'].mean())**2)/len(df_test_735['pl'])
 variance_2540 = np.sum((df_test_2540['pl'] - df_test_2540['pl'].mean())**2)/len(df_test_2540['pl'])
@@ -279,10 +251,8 @@ mean_735=np.mean(df_test_735['pl'])
 mean_2540=np.mean(df_test_2540['pl'])
 mean_3500=np.mean(df_test_3500['pl'])
 
-
 data = [['750',RMSE_735, R2_735,R2_oos_735,variance_735,mean_735],['2500',RMSE_2540, R2_2540,R2_oos_2540,variance_2540,mean_2540],['3500',RMSE_3500, R2_3500,R2_oos_3500,variance_3500,mean_3500]]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','R^2 OOS','Variance [dB]','Mean[dB]']))
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -298,10 +268,8 @@ plt.savefig('R2_macrocell.eps',format='eps',dpi=1200)
 plt.show()
 plt.close()
 
-
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
-
 
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
@@ -328,11 +296,9 @@ data = [['Testing set',RMSE_test, MAPE_test, SD_test,R2_test]]
 print(tabulate(data, headers=["","",'','','']))
 
 #%%
-
 """
 Applying Cross-Validation
 """
-
 learning_rate = [0.001,0.01,0.1] #define learning rate
 
 decay_weigth = [0.001,0.01,0.1]  #define decay weigth
@@ -347,7 +313,6 @@ p = len(num_neurons)*max_iter
 zmatrix_mlp = np.zeros((p, 5)) #size of the cross-validation matriz
 
 cv = KFold(n_splits=5,shuffle=True,random_state=0)
-
 
 count = 0
 md = 0
