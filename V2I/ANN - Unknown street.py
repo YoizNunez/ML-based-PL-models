@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -14,19 +8,11 @@ import pandas as pd
 import seaborn as sns
 from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
+   
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import math
-from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.neural_network import MLPRegressor
 
 from sklearn.model_selection import KFold
@@ -41,7 +27,6 @@ import matplotlib.pyplot as plt
 import tabulate
 from tabulate import tabulate
 
-torch.manual_seed(0)
 np.random.seed(0)
 
 import random
@@ -52,22 +37,6 @@ random.seed(0)
 """
 Reading the CSV files
 """
-
-#SC9
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_9.csv"
-df_SC9 = pd.read_csv(path)
-df_SC9.head()
-
-#SC10
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_10.csv"
-df_SC10 = pd.read_csv(path)
-df_SC10.head()
-
-#SC11
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_11.csv"
-df_SC11 = pd.read_csv(path)
-df_SC11.head()
-
 #SC12
 path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_12.csv"
 df_SC12 = pd.read_csv(path)
@@ -77,11 +46,6 @@ df_SC12.head()
 path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_15.csv"
 df_SC15 = pd.read_csv(path)
 df_SC15.head()
-
-#SC16
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_16.csv"
-df_SC16 = pd.read_csv(path)
-df_SC16.head()
 
 #SC19
 path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_19.csv"
