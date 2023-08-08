@@ -15,12 +15,9 @@ from sklearn.model_selection import cross_val_score
 import warnings
 warnings.filterwarnings("ignore")
 
-import numpy
-import matplotlib.pyplot as plt
-
 import tabulate
 from tabulate import tabulate
-np.random.seed(0)
+
 import random
 random.seed(0)
 
@@ -28,80 +25,80 @@ random.seed(0)
 """
 Reading the CSV files
 """
-path=r"SC1_750.csv"
-df_SC1_750 = pd.read_csv(path)
-df_SC1_750.head()
+path=r"Route1_750.csv"
+df_R1_750 = pd.read_csv(path)
+df_R1_750.head()
 
-path=r"SC1_2500.csv"
-df_SC1_2500 = pd.read_csv(path)
-df_SC1_2500.head()
+path=r"Route1_2500.csv"
+df_R1_2500 = pd.read_csv(path)
+df_R1_2500.head()
 
-path=r"SC1_3500.csv"
-df_SC1_3500 = pd.read_csv(path)
-df_SC1_3500.head()
+path=r"Route1_3500.csv"
+df_R1_3500 = pd.read_csv(path)
+df_R1_3500.head()
 
-path=r"SC2_750.csv"
-df_SC2_750 = pd.read_csv(path)
-df_SC2_750.head()
+path=r"Route2_750.csv"
+df_R1_750 = pd.read_csv(path)
+df_R1_750.head()
 
-path=r"SC2_2500.csv"
-df_SC2_2500 = pd.read_csv(path)
-df_SC2_2500.head()
+path=r"Route2_2500.csv"
+df_R2_2500 = pd.read_csv(path)
+df_R2_2500.head()
 
-path=r"SC2_3500.csv"
-df_SC2_3500 = pd.read_csv(path)
-df_SC2_3500.head()
+path=r"Route2_3500.csv"
+df_R2_3500 = pd.read_csv(path)
+df_R2_3500.head()
 
 #%%
 #Selection of samples for training and testing
-#SC1
-samples_test = 1700 #to take 700 sample on the testing set
-samples_train_SC1_750 = len(df_SC1_750)  - samples_test
-samples_train_SC1_2500 = len(df_SC1_2500) - samples_test
-samples_train_SC1_3500 = len(df_SC1_3500) - 1470
+#Route1
+samples_test = 1700 
+samples_train_R1_750 = len(df_R1_750)  - samples_test
+samples_train_R1_2500 = len(df_R1_2500) - samples_test
+samples_train_R1_3500 = len(df_R1_3500) - 1470
 
-#SC2
-samples_test = 960 #to take the last 700 sample on the testing set
-samples_train_SC2_750 = len(df_SC2_750)  - samples_test
-samples_train_SC2_2500 = len(df_SC2_2500) - samples_test
-samples_train_SC2_3500 = len(df_SC2_3500) - 880
+#Route2
+samples_test = 960 
+samples_train_R2_750 = len(df_R2_750)  - samples_test
+samples_train_R2_2500 = len(df_R2_2500) - samples_test
+samples_train_R2_3500 = len(df_R2_3500) - 880
 
-#SC1
-df_train_SC1_750=df_SC1_750.loc[np.r_[0:samples_train_SC1_750, samples_train_SC1_750+700:len(df_SC1_750)], :]
-df_train_SC1_2500=df_SC1_2500.loc[np.r_[0:samples_train_SC1_2500, samples_train_SC1_2500+700:len(df_SC1_2500)], :]
-df_train_SC1_3500=df_SC1_3500.loc[np.r_[0:samples_train_SC1_3500, samples_train_SC1_3500+545:len(df_SC1_3500)], :]
+#Route1
+df_train_R1_750=df_R1_750.loc[np.r_[0:samples_train_R1_750, samples_train_R1_750+700:len(df_R1_750)], :]
+df_train_R1_2500=df_R1_2500.loc[np.r_[0:samples_train_R1_2500, samples_train_R1_2500+700:len(df_R1_2500)], :]
+df_train_R1_3500=df_R1_3500.loc[np.r_[0:samples_train_SR1_3500, samples_train_R1_3500+545:len(df_R1_3500)], :]
 
-df_test_SC1_750= df_SC1_750.iloc[samples_train_SC1_750:samples_train_SC1_750+700]
-df_test_SC1_2500= df_SC1_2500.iloc[samples_train_SC1_2500:samples_train_SC1_2500+700]
-df_test_SC1_3500= df_SC1_3500.iloc[samples_train_SC1_3500:samples_train_SC1_3500+545]
+df_test_R1_750= df_R1_750.iloc[samples_train_R1_750:samples_train_R1_750+700]
+df_test_R1_2500= df_R1_2500.iloc[samples_train_R1_2500:samples_train_R1_2500+700]
+df_test_R1_3500= df_R1_3500.iloc[samples_train_R1_3500:samples_train_R1_3500+545]
 
-#SC2
-df_train_SC2_750= df_SC2_750.loc[np.r_[0:samples_train_SC2_750, samples_train_SC2_750+290:len(df_SC2_750)], :]
-df_train_SC2_2500= df_SC2_2500.loc[np.r_[0:samples_train_SC2_2500, samples_train_SC2_2500+290:len(df_SC2_2500)], :]
-df_train_SC2_3500= df_SC2_3500.loc[np.r_[0:samples_train_SC2_3500, samples_train_SC2_3500+275:len(df_SC2_3500)], :]
+#Route2
+df_train_R2_750= df_R2_750.loc[np.r_[0:samples_train_R2_750, samples_train_R2_750+290:len(df_R2_750)], :]
+df_train_R2_2500= df_R2_2500.loc[np.r_[0:samples_train_R2_2500, samples_train_R2_2500+290:len(df_R2_2500)], :]
+df_train_R2_3500= df_R2_3500.loc[np.r_[0:samples_train_R2_3500, samples_train_R2_3500+275:len(df_R2_3500)], :]
 
-df_test_SC2_750= df_SC2_750.iloc[samples_train_SC2_750:samples_train_SC2_750+290]
-df_test_SC2_2500= df_SC2_2500.iloc[samples_train_SC2_2500:samples_train_SC2_2500+290]
-df_test_SC2_3500= df_SC2_3500.iloc[samples_train_SC2_3500:samples_train_SC2_3500+275]
+df_test_R2_750= df_R2_750.iloc[samples_train_R2_750:samples_train_R2_750+290]
+df_test_R2_2500= df_R2_2500.iloc[samples_train_R2_2500:samples_train_R2_2500+290]
+df_test_R2_3500= df_R2_3500.iloc[samples_train_R2_3500:samples_train_R2_3500+275]
 
 #joining the multiples dataframe, to generate the final training and testing sets
-df_train = pd.concat([df_train_SC1_750,df_train_SC1_2500,df_train_SC1_3500,df_train_SC2_750,df_train_SC2_2500,df_train_SC2_3500])
-df_test_SC1 = pd.concat([df_test_SC1_750,df_test_SC1_2500,df_test_SC1_3500])
-df_test_SC2 = pd.concat([df_test_SC2_750,df_test_SC2_2500,df_test_SC2_3500])
+df_train = pd.concat([df_train_R1_750,df_train_SC1_2500,df_train_SC1_3500,df_train_SC2_750,df_train_SC2_2500,df_train_SC2_3500])
+df_test_SC1 = pd.concat([df_test_R1_750,df_test_R1_2500,df_test_R1_3500])
+df_test_SC2 = pd.concat([df_test_R2_750,df_test_R1_2500,df_test_R2_3500])
 
-df_test = pd.concat([df_test_SC1,df_test_SC2])
-
-fig, ax = plt.subplots(figsize = (8,7))
-ax.scatter(df_train_SC1_750['Long'], df_train_SC1_750['Lat'], c='black', s=20)
-ax.scatter(df_test_SC1_750['Long'], df_test_SC1_750['Lat'], c='blue', s=20)
+df_test = pd.concat([df_test_R1,df_test_R2])
 
 fig, ax = plt.subplots(figsize = (8,7))
-ax.scatter(df_train_SC1_2500['Long'], df_train_SC1_2500['Lat'], c='black', s=20)
-ax.scatter(df_test_SC1_2500['Long'], df_test_SC1_2500['Lat'], c='green', s=20)
+ax.scatter(df_train_R1_750['Long'], df_train_R1_750['Lat'], c='black', s=20)
+ax.scatter(df_test_R1_750['Long'], df_test_R1_750['Lat'], c='blue', s=20)
 
 fig, ax = plt.subplots(figsize = (8,7))
-ax.scatter(df_train_SC1_3500['Long'], df_train_SC1_3500['Lat'], c='black', s=20)
-ax.scatter(df_test_SC1_3500['Long'], df_test_SC1_3500['Lat'], c='orange', s=20)
+ax.scatter(df_train_R1_2500['Long'], df_train_R1_2500['Lat'], c='black', s=20)
+ax.scatter(df_test_R1_2500['Long'], df_test_R1_2500['Lat'], c='green', s=20)
+
+fig, ax = plt.subplots(figsize = (8,7))
+ax.scatter(df_train_R1_3500['Long'], df_train_R1_3500['Lat'], c='black', s=20)
+ax.scatter(df_test_R1_3500['Long'], df_test_R1_3500['Lat'], c='orange', s=20)
 
 #%%
 """
@@ -185,7 +182,6 @@ mean_3500=np.mean(df_train_3500['pl'])
 #Training
 data = [['735',RMSE_735, R2_735,variance_735,mean_735],['2450',RMSE_2540, R2_2540,variance_2540,mean_2540],['3500',RMSE_3500, R2_3500,variance_3500,mean_3500]]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','Variance [dB]','Mean [dB]']))
-
 
 MSE = np.square(np.subtract(y_target_desn,y_pred_desn)).mean() #RMSE
 RMSE_train = math.sqrt(MSE)
