@@ -1,28 +1,14 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
 
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
+   
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -38,9 +24,6 @@ import matplotlib.pyplot as plt
 import tabulate
 from tabulate import tabulate
 
-torch.manual_seed(0)
-np.random.seed(0)
-
 import random
 random.seed(0)
 
@@ -48,7 +31,7 @@ random.seed(0)
 """
 Read Data
 """
-path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path = r"Outdoor.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -59,7 +42,6 @@ X = df.iloc[:, [0,1,2,5]]
 y = df.iloc[:, [3]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=90)
-
 
 #normalize inputs
 scaler = StandardScaler()
@@ -89,7 +71,6 @@ mlp_regressor = MLPRegressor(hidden_layer_sizes=78,
   
 mlp_regressor.fit(X_train,np.ravel(y_train))
 
-
 #TRAINING
 y_pred = mlp_regressor.predict(X_train)
 
@@ -98,14 +79,12 @@ y_pred = y_pred.reshape(-1,1)
 y_pred_desn = scaler.inverse_transform(y_pred)
 y_target_desn = scaler.inverse_transform(y_train)
 
-
 MSE = np.square(np.subtract(y_target_desn,y_pred_desn)).mean() #RMSE
 RMSE_train = math.sqrt(MSE)
 
 MAPE_train = np.mean(np.abs((y_target_desn - y_pred_desn)/y_target_desn))*100 #MAPE
 
 R2_train= r2_score(y_target_desn,y_pred_desn) #R2
-
 
 n = len(y_pred_desn)
 sum_model=0
@@ -119,14 +98,12 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = mlp_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
 
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -139,12 +116,9 @@ plt.show()
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
 
-
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
-
 MAPE_test = np.mean(np.abs((y_target_desn_test - y_pred_desn_test)/y_target_desn_test))*100 #MAPE
-
 
 n = len(y_pred_desn_test)
 sum_model=0
@@ -158,7 +132,6 @@ for x in abs_dif:
 
 SD_test = math.sqrt(sum_model/(n)) #SD
 
-
 #Training
 data = [['Training set',RMSE_train, MAPE_train, SD_train,R2_train]]  
 print(tabulate(data, headers=["","RMSE ",'MAPE [%]','SD','R^2']))
@@ -168,7 +141,6 @@ data = [['Testing set',RMSE_test, MAPE_test, SD_test,R2_test]]
 print(tabulate(data, headers=["","",'','','']))
 
 #%%
-
 """
 Applying Cross-Validation
 """
@@ -186,7 +158,6 @@ p = len(num_neurons)*max_iter
 matrix_cv_mlp = np.zeros((p, 4)) # Size of the CV matriz
 
 cv = KFold(n_splits=5,shuffle=True,random_state=42)
-
 
 count = 0
 md = 0
@@ -250,7 +221,5 @@ for i in range(max_iter):
             ml +=1
             b = b + len(num_neurons)*len(learning_rate)
 
-#%%
 
-#Campus Map of the University...
 
