@@ -57,9 +57,6 @@ TEST_DF= DATA_DF.tail(n)
 y_train = TRAIN_DF.iloc[:, [8]]  #PL
 y_test = TEST_DF.iloc[:, [8]] #PL
 
-mean=np.average(y_train)
-std=np.std(y_train)
-
 min_data=np.min(y_train)
 max_data=np.max(y_train)
 
@@ -90,7 +87,6 @@ TRAIN_DF= DATA_DF.iloc[:n]
 n=374#the last 374 samples of the route Jardim Oceânico.
 TEST_DF= DATA_DF.tail(n)
 
-
 """
 Procesing data folders to train and test
 """
@@ -115,7 +111,6 @@ TRAIN_DF.size, VALID_DF.size, TEST_DF.size
 """
 Creating Dataset and Dataloaders
 """
-
 class EuroSAT(Dataset):
     def __init__(self, train_df, train_dir, transform=None):
         self.train_dir = train_dir
@@ -155,7 +150,6 @@ valid_dl= DataLoader(valid_ds, batch_size, shuffle=False, num_workers=0, pin_mem
 batch_size=374
 test_dl = DataLoader(test_ds, batch_size, shuffle=False, num_workers=0, pin_memory=True)
 
-
 """
 Model
 """
@@ -168,8 +162,6 @@ def RMSELoss(outputs, labels):
 
 def RMSELoss_desnormalized(outputs, labels,ab):
     
-    mean=65.35613917770002
-    std=5.014971  
     min_data=50.953507
     max_data=78.564554
 
@@ -280,9 +272,8 @@ class LULC_Model(MulticlassClassifierBase):
 
 model = LULC_Model()
 
-
 #Loading the trained model
-model.load_state_dict(torch.load("C:/Users/Yoiz Nuñez/PathLossPredictionSatelliteImages/Saved Model/Resnet18_NPUW.pt"))
+model.load_state_dict(torch.load("Resnet18_NPUW.pt"))
 
 model_test=list(model.children())[-1] #to extract the model ResNet from LULC model
 
@@ -469,7 +460,6 @@ try_batch(train_dl)
 
 torch.cuda.empty_cache()
 
-
 """
 Training
 """
@@ -487,9 +477,7 @@ model.freeze()
 ## Training
 history = fit(epochs, max_lr, model, train_dl, valid_dl, test_dl, weight_decay, grad_clip, opt_func, max_epochs_stop)
 
-
 #%%
-
 ### CNN testing with unseen data ###
 result = evaluate(model, test_dl)
 print(result)
