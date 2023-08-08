@@ -3,12 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from tqdm.notebook import tqdm
-import matplotlib.pyplot as plt
-   
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -27,102 +21,61 @@ import matplotlib.pyplot as plt
 import tabulate
 from tabulate import tabulate
 
-np.random.seed(0)
-
 import random
 random.seed(0)
-
 
 #%%
 """
 Reading the CSV files
 """
-#SC12
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_12.csv"
-df_SC12 = pd.read_csv(path)
-df_SC12.head()
+#Route1
+path=r"Route1_735.csv"
+df_R1_735 = pd.read_csv(path)
+df_R1_735.head()
 
-#SC15
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_15.csv"
-df_SC15 = pd.read_csv(path)
-df_SC15.head()
+path=r"Route1_2540.csv"
+df_R1_2540 = pd.read_csv(path)
+df_R1_2540.head()
 
-#SC19
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_19.csv"
-df_SC19 = pd.read_csv(path)
-df_SC19.head()
+path=r"Route1_3500.csv"
+df_R1_3500 = pd.read_csv(path)
+df_R1_3500.head()
 
-#SC20
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_20.csv"
-df_SC20 = pd.read_csv(path)
-df_SC20.head()
+#Route2
+path=r"Route2_735.csv"
+df_R2_735 = pd.read_csv(path)
+df_R2_735.head()
 
-#SC23
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_23.csv"
-df_SC23 = pd.read_csv(path)
-df_SC23.head()
+path=r"Route2_2540.csv"
+df_R2_2540 = pd.read_csv(path)
+df_R2_2540.head()
 
-#SC24
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_24.csv"
-df_SC24 = pd.read_csv(path)
-df_SC24.head()
-
-#SC27
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_27.csv"
-df_SC27 = pd.read_csv(path)
-df_SC27.head()
-
-
-#SC28
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_28.csv"
-df_SC28 = pd.read_csv(path)
-df_SC28.head()
-
-#SC31
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_31.csv"
-df_SC31 = pd.read_csv(path)
-df_SC31.head()
-
-#SC32
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_32.csv"
-df_SC32 = pd.read_csv(path)
-df_SC32.head()
-
-#SC35
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_35.csv"
-df_SC35 = pd.read_csv(path)
-df_SC35.head()
-
-#SC36
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_36.csv"
-df_SC36 = pd.read_csv(path)
-df_SC36.head()
+path=r"Route2_3500.csv"
+df_R2_3500 = pd.read_csv(path)
+df_R2_3500.head()
 
 #%%
-
-#Total areas
+#Route1
 df_train = pd.concat([
-    df_SC23,#3.5 GHz
-    df_SC24, #2.54 GHz
-    df_SC27, #735 MHz
+    df_R1_735,
+    df_R1_2540, 
+    df_R1_3500
     ])
 
-
+#Route2
 df_test = pd.concat([
-    df_SC15, #735 MHz
-    df_SC19, #3.5 GHz
-    df_SC20 #2.54 GHz
+    df_R2_735, 
+    df_R2_2540, 
+    df_R2_3500 
     ])
-
 
 #%%
 """
 Create Input and Output Data
 """
-
 X_train = df_train.iloc[:, [6,15,11,17,12,13,7,14,10,8,9,16]] 
 y_train = df_train.iloc[:, [25]]
-#Select the testing set: SC1 or SC21
+
 X_test = df_test.iloc[:, [6,15,11,17,12,13,7,14,10,8,9,16]]
 y_test = df_test.iloc[:, [25]]
 
@@ -142,7 +95,6 @@ y_test = scaler.transform(y_test)
 # convert output variable to float
 y_train, y_test = y_train.astype(float), y_test.astype(float),
 
-### ANN ###
 mlp_regressor = MLPRegressor(hidden_layer_sizes=11, 
                                  activation='logistic',
                                  solver='lbfgs',
@@ -155,15 +107,11 @@ mlp_regressor = MLPRegressor(hidden_layer_sizes=11,
     
 mlp_regressor.fit(X_train,np.ravel(y_train))
 
-
 #TRAINING
 y_pred = mlp_regressor.predict(X_train)
-
 y_pred = y_pred.reshape(-1,1)
-
 y_pred_desn = scaler.inverse_transform(y_pred)
 y_target_desn = scaler.inverse_transform(y_train)
-
 pl_pred=y_pred_desn
 
 df_train['pl_pred']=pl_pred
@@ -203,7 +151,6 @@ data = [['735',RMSE_735, R2_735,variance_735,mean_735],['2450',RMSE_2540, R2_254
         ]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','Variance [dB]','Mean [dB]']))
 
-
 MSE = np.square(np.subtract(y_target_desn,y_pred_desn)).mean() #RMSE
 RMSE_train = math.sqrt(MSE)
 
@@ -223,7 +170,6 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = mlp_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
@@ -231,7 +177,6 @@ y_pred_test = y_pred_test.reshape(-1,1)
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 pl_pred_test=y_pred_desn_test
 
@@ -260,7 +205,6 @@ R2_3500= r2_score(df_test_3500['PL'],df_test_3500['pl_pred']) #R2
 R2_oos_3500 = 1 - np.sum((df_test_3500['PL'] - df_test_3500['pl_pred'])**2) / np.sum((df_train_3500['PL'].mean() - df_test_3500['PL'])**2)
 
 #Testing
-
 #variance
 variance_735 = np.sum((df_test_735['PL'] - df_test_735['PL'].mean())**2)/len(df_test_735['PL'])
 variance_2540 = np.sum((df_test_2540['PL'] - df_test_2540['PL'].mean())**2)/len(df_test_2540['PL'])
@@ -275,7 +219,6 @@ data = [['735',RMSE_735, R2_735,R2_oos_735,variance_735,mean_735],['2450',RMSE_2
         ,['3500',RMSE_3500, R2_3500,R2_oos_3500,variance_3500,mean_3500]
         ]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','R^2 OOS','Variance [dB]','Mean[dB]']))
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -307,7 +250,6 @@ mean_model = np.mean(abs_dif)
 for x in abs_dif:
     t = (x - mean_model) ** 2
     sum_model += t 
-
 SD_test = math.sqrt(sum_model/(n)) #SD
 
 #Training
@@ -319,11 +261,9 @@ data = [['Testing set',RMSE_test, MAPE_test, SD_test,R2_test]]
 print(tabulate(data, headers=["","",'','','']))
 
 #%%
-
 """
 Applying Cross-Validation
 """
-
 learning_rate = [0.001,0.01,0.1] 
     
 decay_weigth = [0.001,0.01,0.1]  
@@ -338,7 +278,6 @@ p = len(num_neurons)*max_iter
 zmatrix_mlp = np.zeros((p, 5)) #size of the cross-validation matriz
 
 cv = KFold(n_splits=5,shuffle=True,random_state=0)
-
 
 count = 0
 md = 0
@@ -365,7 +304,6 @@ for i in range(max_iter):
                                  max_iter=6000,
                                  early_stopping=True)    
         
-
         RMSE_tot_train = 0
         RMSE_tot_val = 0
         
