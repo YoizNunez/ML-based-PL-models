@@ -82,8 +82,8 @@ df_test_R2_3500= df_R2_3500.iloc[samples_train_R2_3500:samples_train_R2_3500+275
 
 #joining the multiples dataframe, to generate the final training and testing sets
 df_train = pd.concat([df_train_R1_750,df_train_SC1_2500,df_train_SC1_3500,df_train_SC2_750,df_train_SC2_2500,df_train_SC2_3500])
-df_test_SC1 = pd.concat([df_test_R1_750,df_test_R1_2500,df_test_R1_3500])
-df_test_SC2 = pd.concat([df_test_R2_750,df_test_R1_2500,df_test_R2_3500])
+df_test_R1 = pd.concat([df_test_R1_750,df_test_R1_2500,df_test_R1_3500])
+df_test_R2 = pd.concat([df_test_R2_750,df_test_R1_2500,df_test_R2_3500])
 
 df_test = pd.concat([df_test_R1,df_test_R2])
 
