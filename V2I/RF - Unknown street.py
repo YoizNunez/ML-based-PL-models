@@ -1,34 +1,13 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from tqdm.notebook import tqdm
-import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
+  
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import math
-from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.ensemble import RandomForestRegressor
-
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
@@ -36,77 +15,60 @@ from sklearn.model_selection import cross_val_score
 import warnings
 warnings.filterwarnings("ignore")
 
-import numpy
-import matplotlib.pyplot as plt
-
 import tabulate
 from tabulate import tabulate
-
-torch.manual_seed(0)
-np.random.seed(0)
 
 import random
 random.seed(0)
 
-
-#%%
 """
 Reading the CSV files
 """
+#Route1
+path=r"Route1_735.csv"
+df_R1_735 = pd.read_csv(path)
+df_R1_735.head()
 
-#SC15
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_15.csv"
-df_SC15 = pd.read_csv(path)
-df_SC15.head()
+path=r"Route1_2540.csv"
+df_R1_2540 = pd.read_csv(path)
+df_R1_2540.head()
 
-#SC19
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_19.csv"
-df_SC19 = pd.read_csv(path)
-df_SC19.head()
+path=r"Route1_3500.csv"
+df_R1_3500 = pd.read_csv(path)
+df_R1_3500.head()
 
-#SC20
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_20.csv"
-df_SC20 = pd.read_csv(path)
-df_SC20.head()
+#Route2
+path=r"Route2_735.csv"
+df_R2_735 = pd.read_csv(path)
+df_R2_735.head()
 
-#SC23
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_23.csv"
-df_SC23 = pd.read_csv(path)
-df_SC23.head()
+path=r"Route2_2540.csv"
+df_R2_2540 = pd.read_csv(path)
+df_R2_2540.head()
 
-#SC24
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_24.csv"
-df_SC24 = pd.read_csv(path)
-df_SC24.head()
-
-#SC27
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_27.csv"
-df_SC27 = pd.read_csv(path)
-df_SC27.head()
-
+path=r"Route2_3500.csv"
+df_R2_3500 = pd.read_csv(path)
+df_R2_3500.head()
 
 #%%
-
-#Total areas
+#Route1
 df_train = pd.concat([
-    df_SC23,#3.5 GHz
-    df_SC24, #2.54 GHz
-    df_SC27, #735 MHz
+    df_R1_735,
+    df_R1_2540, 
+    df_R1_3500
     ])
 
+#Route2
 df_test = pd.concat([
-    df_SC15, #735 MHz
-    df_SC19, #3.5 GHz
-    df_SC20 #2.54 GHz
-   
+    df_R2_735, 
+    df_R2_2540, 
+    df_R2_3500 
     ])
-
 
 #%%
 """
 Create Input and Output Data
 """
-
 X_train = df_train.iloc[:, [6,15,11,17,12,13]] 
 y_train = df_train.iloc[:, [25]]
 
@@ -199,7 +161,6 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = rf_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
@@ -235,7 +196,6 @@ R2_3500= r2_score(df_test_3500['PL'],df_test_3500['pl_pred']) #R2
 R2_oos_3500 = 1 - np.sum((df_test_3500['PL'] - df_test_3500['pl_pred'])**2) / np.sum((df_train_3500['PL'].mean() - df_test_3500['PL'])**2)
 
 #Testing
-
 #variance
 variance_735 = np.sum((df_test_735['PL'] - df_test_735['PL'].mean())**2)/len(df_test_735['PL'])
 variance_2540 = np.sum((df_test_2540['PL'] - df_test_2540['PL'].mean())**2)/len(df_test_2540['PL'])
@@ -250,7 +210,6 @@ data = [['735',RMSE_735, R2_735,R2_oos_735,variance_735,mean_735],['2450',RMSE_2
         ,['3500',RMSE_3500, R2_3500,R2_oos_3500,variance_3500,mean_3500]
         ]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','R^2 OOS','Variance [dB]','Mean[dB]']))
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -297,7 +256,6 @@ print(tabulate(data, headers=["","",'','','']))
 """
 Applying Cross-Validation
 """
-
 max_depth = np.arange(2, 5, 1) #np.arange(2, 13, 1) #define maximum depth
     
 min_samples_leaf = np.arange(10, 24, 2)  #define minumum samples leaf
