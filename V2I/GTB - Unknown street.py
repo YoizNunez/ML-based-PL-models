@@ -1,27 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from tqdm.notebook import tqdm
-import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -34,73 +15,56 @@ from sklearn.model_selection import cross_val_score
 import warnings
 warnings.filterwarnings("ignore")
 
-import numpy
-import matplotlib.pyplot as plt
-
 import tabulate
 from tabulate import tabulate
 
-# check xgboost version
-import xgboost
-from xgboost import XGBRegressor
-
-torch.manual_seed(0)
-np.random.seed(0)
-
 import random
 random.seed(0)
-
 
 #%%
 """
 Reading the CSV files
 """
+#Route1
+path=r"Route1_735.csv"
+df_R1_735 = pd.read_csv(path)
+df_R1_735.head()
 
-#SC15
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_15.csv"
-df_SC15 = pd.read_csv(path)
-df_SC15.head()
+path=r"Route1_2540.csv"
+df_R1_2540 = pd.read_csv(path)
+df_R1_2540.head()
 
-#SC19
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_19.csv"
-df_SC19 = pd.read_csv(path)
-df_SC19.head()
+path=r"Route1_3500.csv"
+df_R1_3500 = pd.read_csv(path)
+df_R1_3500.head()
 
-#SC20
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_20.csv"
-df_SC20 = pd.read_csv(path)
-df_SC20.head()
+#Route2
+path=r"Route2_735.csv"
+df_R2_735 = pd.read_csv(path)
+df_R2_735.head()
 
-#SC23
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_23.csv"
-df_SC23 = pd.read_csv(path)
-df_SC23.head()
+path=r"Route2_2540.csv"
+df_R2_2540 = pd.read_csv(path)
+df_R2_2540.head()
 
-#SC24
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_24.csv"
-df_SC24 = pd.read_csv(path)
-df_SC24.head()
-
-#SC27
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_27.csv"
-df_SC27 = pd.read_csv(path)
-df_SC27.head()
+path=r"Route2_3500.csv"
+df_R2_3500 = pd.read_csv(path)
+df_R2_3500.head()
 
 #%%
-
-#Total areas
+#Route1
 df_train = pd.concat([
-    df_SC23,#3.5 GHz
-    df_SC24, #2.54 GHz
-    df_SC27, #735 MHz
+    df_R1_735,
+    df_R1_2540, 
+    df_R1_3500
     ])
 
+#Route2
 df_test = pd.concat([
-    df_SC15, #735 MHz
-    df_SC19, #3.5 GHz
-    df_SC20 #2.54 GHz
+    df_R2_735, 
+    df_R2_2540, 
+    df_R2_3500 
     ])
-
 #%%
 """
 Create Input and Output Data
@@ -131,7 +95,6 @@ y_test = scaler.transform(y_test)
 # convert output variable to float
 y_train, y_test = y_train.astype(float), y_test.astype(float),
 
-
 gtb_regressor = GradientBoostingRegressor(n_estimators=70, 
                                           learning_rate=0.14, 
                                           max_depth=10, 
@@ -140,7 +103,6 @@ gtb_regressor = GradientBoostingRegressor(n_estimators=70,
                                           loss='absolute_error', 
                                           max_features='auto',random_state=42) #42
 gtb_regressor.fit(X_train,np.ravel(y_train))
-
 
 #TRAINING
 y_pred = gtb_regressor.predict(X_train)
@@ -190,7 +152,6 @@ data = [['735',RMSE_735, R2_735,variance_735,mean_735]
         ]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','Variance [dB]','Mean [dB]']))
 
-
 MSE = np.square(np.subtract(y_target_desn,y_pred_desn)).mean() #RMSE
 RMSE_train = math.sqrt(MSE)
 
@@ -210,7 +171,6 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = gtb_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
@@ -218,7 +178,6 @@ y_pred_test = y_pred_test.reshape(-1,1)
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 pl_pred_test=y_pred_desn_test
 
@@ -263,8 +222,6 @@ data = [['735',RMSE_735, R2_735,R2_oos_735,variance_735,mean_735]
         ]  
 print(tabulate(data, headers=["Freq",'RMSE','R^2','R^2 OOS','Variance [dB]','Mean[dB]']))
 
-
-
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
 p2 = min(min(y_target_desn_test), min(y_target_desn_test))
@@ -279,10 +236,8 @@ plt.savefig('R2_V2I_BW.eps',format='eps',dpi=1200)
 plt.show()
 plt.close()
 
-
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
-
 
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
@@ -308,13 +263,10 @@ print(tabulate(data, headers=["","RMSE ",'MAPE [%]','SD','R^2']))
 data = [['Testing set',RMSE_test, MAPE_test, SD_test,R2_test]]
 print(tabulate(data, headers=["","",'','','']))
 
-
 #%%
-
 """
 Applying Cross-Validation
 """
-
 max_depth = np.arange(2, 13, 1) #np.arange(2, 13, 1) #define maximum depth
     
 min_samples_leaf = np.arange(10, 24, 2)  #define minumum samples leaf
@@ -329,7 +281,6 @@ p = len(num_trees)*max_iter
 zmatrix_cv_gb = np.zeros((p, 5)) #size of the cross-validation matriz
 
 cv = KFold(n_splits=5,shuffle=True,random_state=0)
-
 
 count = 0
 md = 0
