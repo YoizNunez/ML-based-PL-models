@@ -1,28 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from tqdm.notebook import tqdm
 import matplotlib.pyplot as plt
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -51,15 +33,14 @@ random.seed(0)
 """
 Read Data
 """
-path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path = r"outdoor.csv"
 df = pd.read_csv(path)
 df.head()
-
 
 """
 Create Input and Output Data
 """
-X = df.iloc[:, [0,1,2,5]] #with vegetation depth -->5 
+X = df.iloc[:, [0,1,2,5]]
 y = df.iloc[:, [3]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=90)
@@ -118,14 +99,12 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = rf_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
 
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -137,7 +116,6 @@ plt.show()
 
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
-
 
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
@@ -238,7 +216,6 @@ for i in range(max_iter):
             b = b + len(num_trees)*len(max_depth)
 
 
-#%%
 
 
 
