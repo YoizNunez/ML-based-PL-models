@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Adapted from
+https://github.com/raoofnaushad/Land-Cover-Classification-using-Sentinel-2-Dataset/blob/master/Land_Cover_Classification_using_Sentinel_2_Satellite_Imagery_and_Deep_Learning.ipynb
+"""
+
+"""
 Libraries
 """
 import os
