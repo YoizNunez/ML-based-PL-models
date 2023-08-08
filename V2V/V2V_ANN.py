@@ -64,7 +64,7 @@ y_test = scaler.transform(y_test)
 # convert output variable to float
 y_train, y_test = y_train.astype(float), y_test.astype(float),
 
-gtb_regressor =  MLPRegressor(hidden_layer_sizes=16, 
+mlp_regressor =  MLPRegressor(hidden_layer_sizes=16, 
                                  activation='relu',
                                  solver='lbfgs',
                                  alpha=0.1,
@@ -73,10 +73,10 @@ gtb_regressor =  MLPRegressor(hidden_layer_sizes=16,
                                  random_state=0, 
                                  max_iter=6000,
                                  early_stopping=True)    
-gtb_regressor.fit(X_train,np.ravel(y_train))
+mlp_regressor.fit(X_train,np.ravel(y_train))
 
 #TRAINING
-y_pred = gtb_regressor.predict(X_train)
+y_pred = mlp_regressor.predict(X_train)
 
 y_pred = y_pred.reshape(-1,1)
 
@@ -103,7 +103,7 @@ for x in abs_dif:
 SD_train = math.sqrt(sum_model/(n)) #SD
 
 #TESTING
-y_pred_test = gtb_regressor.predict(X_test)
+y_pred_test = mlp_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
 
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
