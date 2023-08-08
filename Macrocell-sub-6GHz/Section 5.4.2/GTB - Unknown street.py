@@ -75,7 +75,7 @@ df_test_R1_750= df_R1_750.iloc[samples_train_R1_750:samples_train_R1_750+700]
 df_test_R1_2500= df_R1_2500.iloc[samples_train_R1_2500:samples_train_R1_2500+700]
 df_test_R1_3500= df_R1_3500.iloc[samples_train_R1_3500:samples_train_R1_3500+545]
 
-#SC2
+#Route2
 df_train_R2_750= df_R2_750.loc[np.r_[0:samples_train_R2_750, samples_train_R2_750+290:len(df_R2_750)], :]
 df_train_R2_2500= df_R2_2500.loc[np.r_[0:samples_train_R2_2500, samples_train_R2_2500+290:len(df_R2_2500)], :]
 df_train_R2_3500= df_R2_3500.loc[np.r_[0:samples_train_R2_3500, samples_train_R2_3500+275:len(df_R2_3500)], :]
