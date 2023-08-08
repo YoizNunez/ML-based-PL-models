@@ -1,33 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
-#1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
-import numpy as np
-import pandas as pd
-import seaborn as sns
-from tqdm.notebook import tqdm
-import matplotlib.pyplot as plt
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, ConcatDataset
-from torch.utils.data import SubsetRandomSampler #split the dataset
-
-from sklearn.preprocessing import MinMaxScaler    
+ 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 import math
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.neural_network import MLPRegressor
 from sklearn.svm import SVR
 
 from sklearn.model_selection import KFold
@@ -36,69 +15,54 @@ from sklearn.model_selection import cross_val_score
 import warnings
 warnings.filterwarnings("ignore")
 
-import numpy
-import matplotlib.pyplot as plt
-
 import tabulate
 from tabulate import tabulate
 
-torch.manual_seed(0)
-np.random.seed(0)
-
 import random
 random.seed(0)
-
 
 #%%
 """
 Reading the CSV files
 """
-
-#SC15
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_15.csv"
-df_SC15 = pd.read_csv(path)
-df_SC15.head()
-
-#SC19
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_19.csv"
-df_SC19 = pd.read_csv(path)
-df_SC19.head()
-
-#SC20
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_20.csv"
-df_SC20 = pd.read_csv(path)
-df_SC20.head()
-
-#SC23
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_23.csv"
-df_SC23 = pd.read_csv(path)
-df_SC23.head()
-
-#SC24
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_24.csv"
-df_SC24 = pd.read_csv(path)
-df_SC24.head()
-
-#SC27
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_27.csv"
-df_SC27 = pd.read_csv(path)
-df_SC27.head()
-
-
 #%%
+#Route1
+path=r"Route1_735.csv"
+df_R1_735 = pd.read_csv(path)
+df_R1_735.head()
 
-#Total areas
+path=r"Route1_2540.csv"
+df_R1_2540 = pd.read_csv(path)
+df_R1_2540.head()
+
+path=r"Route1_3500.csv"
+df_R1_3500 = pd.read_csv(path)
+df_R1_3500.head()
+
+#Route2
+path=r"Route2_735.csv"
+df_R2_735 = pd.read_csv(path)
+df_R2_735.head()
+
+path=r"Route2_2540.csv"
+df_R2_2540 = pd.read_csv(path)
+df_R2_2540.head()
+
+path=r"Route2_3500.csv"
+df_R2_3500 = pd.read_csv(path)
+df_R2_3500.head()
+
+#Route1
 df_train = pd.concat([
-    df_SC23,#3.5 GHz
-    df_SC24, #2.54 GHz
-    df_SC27, #735 MHz   
+    df_R1_735,
+    df_R1_2540, 
+    df_R1_3500
     ])
-
+#Route2
 df_test = pd.concat([
-    df_SC15, #735 MHz
-    df_SC19, #3.5 GHz
-    df_SC20 #2.54 GHz
-   
+    df_R2_735, 
+    df_R2_2540, 
+    df_R2_3500 
     ])
 
 #%%
