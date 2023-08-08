@@ -60,9 +60,9 @@ samples_train_R1_3500 = len(df_R1_3500) - 1470
 
 #Route1
 samples_test = 960
-samples_train_R2_750 = len(df_SC2_750)  - samples_test
-samples_train_R2_2500 = len(df_SC2_2500) - samples_test
-samples_train_R2_3500 = len(df_SC2_3500) - 880
+samples_train_R2_750 = len(df_R2_750)  - samples_test
+samples_train_R2_2500 = len(df_R2_2500) - samples_test
+samples_train_R2_3500 = len(df_R2_3500) - 880
 
 #Route1
 df_train_R1_750=df_R1_750.loc[np.r_[0:samples_train_R1_750, samples_train_R1_750+700:len(df_R1_750)], :]
