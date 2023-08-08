@@ -40,30 +40,30 @@ df_R1_3500.head()
 
 #Route2
 path=r"Route2_750.csv"
-df_SC2_750 = pd.read_csv(path)
-df_SC2_750.head()
+df_R2_750 = pd.read_csv(path)
+df_R2_750.head()
 
 path=r"Route2_2500.csv"
-df_SC2_2500 = pd.read_csv(path)
-df_SC2_2500.head()
+df_R2_2500 = pd.read_csv(path)
+df_R2_2500.head()
 
 path=r"Route2_3500.csv"
-df_SC2_3500 = pd.read_csv(path)
-df_SC2_3500.head()
+df_R2_3500 = pd.read_csv(path)
+df_R2_3500.head()
 
 #%%
 #Selection of samples for training and testing
 #Route1
 samples_test = 1700 #to take 700 sample on the testing set
-samples_train_SC1_750 = len(df_SC1_750)  - samples_test
-samples_train_SC1_2500 = len(df_SC1_2500) - samples_test
-samples_train_SC1_3500 = len(df_SC1_3500) - 1470
+samples_train_R1_750 = len(df_R1_750)  - samples_test
+samples_train_R1_2500 = len(df_R1_2500) - samples_test
+samples_train_R1_3500 = len(df_R1_3500) - 1470
 
 #Route2
 samples_test = 960 #to take the last 700 sample on the testing set
-samples_train_SC2_750 = len(df_SC2_750)  - samples_test
-samples_train_SC2_2500 = len(df_SC2_2500) - samples_test
-samples_train_SC2_3500 = len(df_SC2_3500) - 880
+samples_train_R2_750 = len(df_R2_750)  - samples_test
+samples_train_R2_2500 = len(df_R2_2500) - samples_test
+samples_train_R2_3500 = len(df_R2_3500) - 880
 
 #Route1
 df_train_R1_750=df_R1_750.loc[np.r_[0:samples_train_R1_750, samples_train_R1_750+700:len(df_R1_750)], :]
