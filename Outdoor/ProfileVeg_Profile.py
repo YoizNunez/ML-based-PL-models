@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 Read Data
 """
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx2.csv"
+path=r"Rx2.csv"
 df2 = pd.read_csv(path)
 df2.head()
 
@@ -44,7 +44,7 @@ plt.ylabel('Vegetation heigth [m]')
 plt.legend()
 
 #%%
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx4.csv"
+path=r"Rx4.csv"
 df4 = pd.read_csv(path)
 df4.head()
 
@@ -75,7 +75,7 @@ plt.legend()
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx15.csv"
+path=r"Rx15.csv"
 df15 = pd.read_csv(path)
 df15.head()
 
@@ -106,7 +106,7 @@ plt.legend()
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx16.csv"
+path=r"Rx16.csv"
 df16 = pd.read_csv(path)
 df16.head()
 
@@ -137,7 +137,7 @@ plt.legend()
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx1.csv"
+path=r"Rx1.csv"
 df2 = pd.read_csv(path)
 df2.head()
 
@@ -172,7 +172,7 @@ plt.legend()
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx10.csv"
+path=r"Rx10.csv"
 df2 = pd.read_csv(path)
 df2.head()
 
@@ -246,7 +246,7 @@ ax6 = fig.add_subplot(spec[1,2])
 
 
 #RX1
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx1.csv"
+path=r"Rx1.csv"
 df1 = pd.read_csv(path)
 df1.head()
 
@@ -293,7 +293,7 @@ ax1.text(0.05, 0.3, stats_txt, transform=ax1.transAxes, bbox=props, ha='left')
 
 
 #RX2
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx2.csv"
+path=r"Rx2.csv"
 df2 = pd.read_csv(path)
 df2.head()
 
@@ -337,7 +337,7 @@ props = dict(boxstyle='square', facecolor='none', edgecolor='none')
 ax2.text(0.05, 0.3, stats_txt, transform=ax2.transAxes, bbox=props, ha='left')
 
 #RX4
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx4.csv"
+path=r"Rx4.csv"
 df4 = pd.read_csv(path)
 df4.head()
 
@@ -380,7 +380,7 @@ props = dict(boxstyle='square', facecolor='none', edgecolor='none')
 ax3.text(0.05, 0.3, stats_txt, transform=ax3.transAxes, bbox=props, ha='left')
 
 #RX10
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx10.csv"
+path=r"Rx10.csv"
 df2 = pd.read_csv(path)
 df2.head()
 
@@ -428,7 +428,7 @@ props = dict(boxstyle='square', facecolor='none', edgecolor='none')
 ax4.text(0.05, 0.3, stats_txt, transform=ax4.transAxes, bbox=props, ha='left')
 
 #RX15
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx15.csv"
+path=r"Rx15.csv"
 df15 = pd.read_csv(path)
 df15.head()
 
@@ -472,7 +472,7 @@ props = dict(boxstyle='square', facecolor='none', edgecolor='none')
 ax5.text(0.05, 0.3, stats_txt, transform=ax5.transAxes, bbox=props, ha='left')
 
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\ProfileVegetation\Rx16.csv"
+path=r"Rx16.csv"
 df16 = pd.read_csv(path)
 df16.head()
 
@@ -555,7 +555,7 @@ ax2 = fig.add_subplot(spec[0,1])
 ax3 = fig.add_subplot(spec[1,0]) 
 ax4 = fig.add_subplot(spec[1,1]) 
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path=r"Outdoor_data_vegetationdepth_qgis_final.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -660,7 +660,7 @@ plt.close()
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path=r"Outdoor_data_vegetationdepth_qgis_final.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -712,7 +712,7 @@ spec = gridspec.GridSpec(ncols=2, nrows=1)
 ax1 = fig.add_subplot(spec[0,0]) 
 ax2 = fig.add_subplot(spec[0,1]) 
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\R2_plot_gen_outdoor\R2_final_model_outdoor_2.csv"
+path=r"R2_final_model_outdoor_2.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -767,6 +767,6 @@ A=A[::-1]
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\SC1_750_Profile_Building.csv"
+path=r"SC1_750_Profile_Building.csv"
 df = pd.read_csv(path,header=None)
 df.head()
