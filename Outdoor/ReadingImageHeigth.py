@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 24 15:29:35 2023
 
-@author: Yoiz Nuñez
-"""
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.image
 from matplotlib import image as mpimg
 import os
-img1 = matplotlib.image.imread(r'C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\GE\List of Images\0.jpg')
-img2 = matplotlib.image.imread(r'C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\GE\List of Images\1.jpg')
+img1 = matplotlib.image.imread(r'List of Images\0.jpg')
+img2 = matplotlib.image.imread(r'List of Images\1.jpg')
 
 b_img1 = img1[:,:,0]
 b_img2 = img2[:,:,0]
@@ -19,8 +15,6 @@ r = img2[:,:,2]
 
 img_final = np.abs(b_img1-b_img2)
 plt.imshow(img_final)
-
-#img=mpimg.imread(r'C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\GE\List of Images\0.jpg')
 
 #%%
 
@@ -45,13 +39,13 @@ for i in range(49): #total of images
     if i>0:
         
         #imagen anterior
-        base_dir=r'C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/GE/List of Images/'
+        base_dir=r'List of Images/'
         filename=str(i-1)+'.jpg'
         fullpath = os.path.join(base_dir, filename)
         img_anterior=matplotlib.image.imread(fullpath)
         
-        #imagen actual
-        base_dir=r'C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/GE/List of Images/'
+        #imagen atual
+        base_dir=r'List of Images/'
         filename=str(i)+'.jpg'
         fullpath = os.path.join(base_dir, filename)
         img_actual=matplotlib.image.imread(fullpath)
