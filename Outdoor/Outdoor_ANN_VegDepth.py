@@ -42,7 +42,7 @@ random.seed(0)
 """
 Read Data
 """
-path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth.csv"
+path = r"Outdoor_data_vegetationdepth.csv"
 df = pd.read_csv(path)
 df.head()
 
