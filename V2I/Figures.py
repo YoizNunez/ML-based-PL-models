@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Aug  3 17:15:50 2023
 
-@author: Yoiz Nuñez
-"""
 #Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 import matplotlib.gridspec as gridspec
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\CODE GITHUB - THESIS\V2I\R2-ML-models.csv"
+path=r"R2-ML-models.csv"
 df = pd.read_csv(path)
 
 fig = plt.figure(figsize=(14,11))
@@ -35,18 +30,6 @@ ax1.scatter(df['pl_target'],df['pl_pred_ann'],s=200, label= 'ANN: $R^2 = -0.51$'
 ax2.scatter(df['pl_target'],df['pl_pred_svr'],s=130, label= 'SVR: $R^2 = -1.33$',c='darksalmon',marker='D',linewidths=0)
 ax3.scatter(df['pl_target'],df['pl_pred_rf'],s=180, label= 'RF: $R^2 = 0.58$',c='turquoise')
 ax4.scatter(df['pl_target'],df['pl_pred_gtb'],s=180,label= 'GTB: $R^2 = 0.69$',c='crimson',marker='*')
-
-#ax1.set_xlabel('Measured PL [dB]',fontsize=27)
-#ax1.set_ylabel('Predicted PL [dB]',fontsize=27)
-
-#ax2.set_xlabel('Measured PL [dB]',fontsize=27)
-#ax2.set_ylabel('Predicted PL [dB]',fontsize=27)
-
-#ax3.set_xlabel('Measured PL [dB]',fontsize=27)
-#ax3.set_ylabel('Predicted PL [dB]',fontsize=27)
-
-#ax4.set_xlabel('Measured PL [dB]',fontsize=27)
-#ax4.set_ylabel('Predicted PL [dB]',fontsize=27)
 
 ax1.set_xlim(0,110)
 ax1.set_ylim(0,110)
@@ -94,8 +77,7 @@ plt.show()
 plt.close()
 
 #%%
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\CODE GITHUB - THESIS\V2I\R2-ML-models.csv"
+path=r"R2-ML-models.csv"
 df = pd.read_csv(path)
 
 fig = plt.figure(figsize=(14,11))
@@ -193,7 +175,7 @@ ax1 = fig.add_subplot(spec[0,0]) # row 0 with axes spanning 2 cols on evens
 ax2 = fig.add_subplot(spec[0,1]) # row 0 with axes spanning 2 cols on evens
 ax3 = fig.add_subplot(spec[0,2]) # row 0 with axes spanning 2 cols on evens
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\R2_plot_gen_outdoor\R2_final_model_V2I.csv"
+path=r"R2_final_model_V2I.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -224,7 +206,6 @@ ax1.set_ylabel('Predicted PL [dB]',size=26)
 ax1.set_title('(a) 735 MHz',size=26)
 
 #2500 MHz
-
 p1 = 100
 p2 = 55
 ax2.plot([p1, p2], [p1, p2], '--',linewidth=1,c='navy')
@@ -238,11 +219,8 @@ ax2.set_xlabel('Measured PL [dB]',size=26)
 ax2.set_ylabel('Predicted PL [dB]',size=26)
 ax2.set_title('(b) 2.54 GHz',size=26)
 
-
 p1 = 100
 p2 = 55
-#ax1.plot([p1, p2], [p1, p2], '--',linewidth=1,label= 'Best fit',c='navy')
-#ax2.plot([p1, p2], [p1, p2], '--',linewidth=1,label= 'Best fit',c='navy')
 ax3.plot([p1, p2], [p1, p2], '--',linewidth=1,c='navy')
 ax3.scatter(pl_target_3500, pl_pred_log_3500,marker='+', label="Log-distance",color='maroon',s=130)
 ax3.scatter(pl_target_3500, pl_pred_gtb_3500,marker='*', label="GTB",color='coral',s=130)
@@ -300,8 +278,7 @@ x=[1,2,3,4,5,6,7,8,9,10,11,12]
 
 
 plt.plot(x,RMSE,"-o",label='$\Delta RMSE_p [dB]$',linewidth=3,markersize=8)
-#plt.plot(x,IAS,"-o",label='$\Delta IAS_p$',linewidth=2.1,markersize=5)
-#plt.plot(x,MEC,"-o",label='$\Delta\overline{MEC}_p$',linewidth=2.1,markersize=5)
+
 
 plt.xlim([0,13])
 plt.ylim([-1,12])
