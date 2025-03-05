@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
 #1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
