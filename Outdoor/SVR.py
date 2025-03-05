@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
 
 #1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
 
 import numpy as np
 import pandas as pd
@@ -47,7 +42,7 @@ random.seed(0)
 """
 Read Data
 """
-path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path = r"Outdoor_data_vegetationdepth_qgis_final.csv"
 df = pd.read_csv(path)
 df.head()
 
