@@ -44,7 +44,7 @@ random.seed(0)
 """
 Read Data
 """
-path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth.csv"
+path = r"Outdoor_data_vegetationdepth.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -82,11 +82,6 @@ kernel=kernels.RBF(length_scale=l)
 gp=gaussian_process.GaussianProcessRegressor(kernel=kernel,optimizer=None,random_state=42)
 
 gp.fit(X_train, y_train)
-
-#%%
-#kernel = 3 * RBF(length_scale=1e-1,length_scale_bounds=(1e-3,1e3))
-#gaussian_process = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=20)
-#gaussian_process.fit(X_train, y_train)
 
 #%%
 #Train
