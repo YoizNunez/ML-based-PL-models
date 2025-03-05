@@ -47,21 +47,19 @@ np.random.seed(0)
 import random
 random.seed(0)
 
-
-
-#%%
+#%
 """
 Reading the CSV files
 """
 
-path = r"C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/V2V/Coord_Tx_Rx_V2V_Suburban.csv"
+path = r"Coord_Tx_Rx_V2V_Suburban.csv"
 df = pd.read_csv(path)
 df.head()
 
-n=1000 #the first 500 samples of the route Gavea-Leblon
+n=1000 
 df_train= df.iloc[:n]
 
-n=374#the last 305 samples of the route Gavea-Leblon
+n=374
 df_test= df.tail(n)
 
 #%%
@@ -75,12 +73,8 @@ X_train = df_train.iloc[:, [12,15]] #13,14,16,17
 y_train = df_train.iloc[:, [8]]
 
 #Select the testing set: SC1 or SC2
-X_test = df_test.iloc[:, [12,15]] #13,14,16,17
+X_test = df_test.iloc[:, [12,15]] 
 y_test = df_test.iloc[:, [8]]
-
-
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
 
 #normalize inputs
 scaler = StandardScaler()
@@ -97,7 +91,6 @@ y_test = scaler.transform(y_test)
 
 # convert output variable to float
 y_train, y_test = y_train.astype(float), y_test.astype(float),
-
 
 gtb_regressor =  MLPRegressor(hidden_layer_sizes=11, 
                                  activation='relu',
@@ -125,7 +118,6 @@ MAPE_train = np.mean(np.abs((y_target_desn - y_pred_desn)/y_target_desn))*100 #M
 
 R2_train= r2_score(y_target_desn,y_pred_desn) #R2
 
-
 n = len(y_pred_desn)
 sum_model=0
 
@@ -138,14 +130,12 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = gtb_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
 
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
