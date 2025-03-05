@@ -282,7 +282,7 @@ model = LULC_Model()
 
 
 #Loading the trained model
-model.load_state_dict(torch.load("C:/Users/Yoiz Nuñez/PathLossPredictionSatelliteImages/Saved Model/Resnet18_NPUW.pt"))
+model.load_state_dict(torch.load("Resnet18_NPUW.pt"))
 
 model_test=list(model.children())[-1] #to extract the model ResNet from LULC model
 
