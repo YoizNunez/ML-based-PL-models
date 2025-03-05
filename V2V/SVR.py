@@ -55,14 +55,14 @@ random.seed(0)
 Reading the CSV files
 """
 
-path = r"C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/V2V/Coord_Tx_Rx_V2V_Suburban.csv"
+path = r"Coord_Tx_Rx_V2V_Suburban.csv"
 df = pd.read_csv(path)
 df.head()
 
-n=1000 #the first 500 samples of the route Gavea-Leblon
+n=1000 
 df_train= df.iloc[:n]
 
-n=374#the last 305 samples of the route Gavea-Leblon
+n=374
 df_test= df.tail(n)
 
 #%%
@@ -139,7 +139,6 @@ y_pred_test = y_pred_test.reshape(-1,1)
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 y_target_desn_test = scaler.inverse_transform(y_test)
 
-
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
 p2 = min(min(y_target_desn_test), min(y_target_desn_test))
@@ -154,10 +153,8 @@ plt.savefig('R2_V2I.eps',format='eps',dpi=1200)
 plt.show()
 plt.close()
 
-
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
-
 
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
@@ -385,7 +382,7 @@ print(fo)
 #%%
 import math
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor Results\CV EM\Test.csv"
+path=r"Test.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -440,10 +437,9 @@ print(SD)
 #%%
 import math
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor Results\CV EM\Test.csv"
+path=r"Test.csv"
 df = pd.read_csv(path)
 df.head()
-
 
 f=df['f']
 d=df['d']
@@ -451,7 +447,6 @@ h=df['h']
 vd=df['vd']
 fslp=df['fslp']
 pl_measured = df['pl'].to_numpy()
-
 
 #CIF
 n=0.536869175469791
@@ -491,47 +486,34 @@ SD = math.sqrt(sum_model/(n)) #SD
 print(SD)
 
 #%%
-
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_750['Long'], df_train_SC1_750['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_750['Long'], df_test_SC1_750['Lat'], c='blue', s=20)
-
 
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_2500['Long'], df_train_SC1_2500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_2500['Long'], df_test_SC1_2500['Lat'], c='green', s=20)
 
-
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC1_3500['Long'], df_train_SC1_3500['Lat'], c='black', s=20)
 ax.scatter(df_test_SC1_3500['Long'], df_test_SC1_3500['Lat'], c='orange', s=20)
 
-
 #%%
-
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC2_750['Long'], df_train_SC2_750['Lat'], c='black', s=20)
-#ax.scatter(df_test_SC2_750['Long'], df_test_SC2_750['Lat'], c='blue', s=20)
-
 
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC2_2500['Long'], df_train_SC2_2500['Lat'], c='black', s=20)
-#ax.scatter(df_test_SC2_2500['Long'], df_test_SC2_2500['Lat'], c='green', s=20)
-
 
 fig, ax = plt.subplots(figsize = (8,7))
 ax.scatter(df_train_SC2_3500['Long'], df_train_SC2_3500['Lat'], c='black', s=20)
-#ax.scatter(df_test_SC2_3500['Long'], df_test_SC2_3500['Lat'], c='orange', s=20)
-
 
 #%%
-
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\SC1_3500_Train_1.csv"
+path=r"SC1_3500_Train_1.csv"
 df_3500_train = pd.read_csv(path)
 df_3500_train.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\SC1_3500_Test_1.csv"
+path=r"SC1_3500_Test_1.csv"
 df_3500_test = pd.read_csv(path)
 df_3500_test.head()
 
@@ -541,7 +523,7 @@ ax.scatter(df_3500_train['Long'], df_3500_train['Lat'], c='black', s=20)
 
 #%%
 
-ruh_m = plt.imread('C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/V2I/Measurement_campaign.png')
+ruh_m = plt.imread('Measurement_campaign.png')
 
 BBox = (df.Long.min(),df.Long.max(),df.Lat.min(), df.Lat.max())
         
@@ -563,17 +545,9 @@ ax.imshow(ruh_m, zorder=0, extent = BBox, aspect= 'equal')
 import pymint #version: 0.2.6
 import pickle
 
-#name of predictors
-
-#'building_depth_3d','d_2d','freq','avg_ground_heigth','delta_h_tx_rx','vegetation_depth_3d','avg_building_heigth'
-
-#'building_depth_3d','d_2d','freq','avg_ground_heigth','delta_h_tx_rx','vegetation_depth_3d','avg_vegetation_heigth','avg_building_heigth','n_vegetation','avg_diffracted_comp','n_building'
-
 features_list=['building_depth_3d','d_2d','freq','avg_ground_heigth','delta_h_tx_rx','vegetation_depth_3d','avg_vegetation_heigth','avg_building_heigth','n_vegetation','avg_diffracted_comp','n_building']
-   
 X_train_df = pd.DataFrame(X_train, columns = features_list)
    
-    
 #%%
 gtb_regressor = GradientBoostingRegressor(n_estimators=60, learning_rate=0.1, max_depth=3, min_samples_leaf=1, alpha=0.9, random_state=0, loss='ls', max_features='auto')
 gtb_regressor.fit(X_train, np.ravel(y_train))
