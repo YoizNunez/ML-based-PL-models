@@ -56,14 +56,14 @@ random.seed(0)
 Reading the CSV files
 """
 
-path = r"C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/V2V/Coord_Tx_Rx_V2V_Suburban.csv"
+path = r"Coord_Tx_Rx_V2V_Suburban.csv"
 df = pd.read_csv(path)
 df.head()
 
-n=1000 #the first 500 samples of the route Gavea-Leblon
+n=1000 
 df_train= df.iloc[:n]
 
-n=374#the last 305 samples of the route Gavea-Leblon
+n=374
 df_test= df.tail(n)
 
 #%%
