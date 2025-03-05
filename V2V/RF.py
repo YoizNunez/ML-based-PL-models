@@ -49,19 +49,18 @@ np.random.seed(0)
 import random
 random.seed(0)
 
-
 #%%
 """
 Reading the CSV files
 """
-path = r"C:/Users/Yoiz Nuñez/Documents/DOUTORADO 2023/V2V/Coord_Tx_Rx_V2V_Suburban.csv"
+path = r"Coord_Tx_Rx_V2V_Suburban.csv"
 df = pd.read_csv(path)
 df.head()
 
-n=1000 #the first 500 samples of the route Gavea-Leblon
+n=1000
 df_train= df.iloc[:n]
 
-n=374#the last 305 samples of the route Gavea-Leblon
+n=374
 df_test= df.tail(n)
 
 #%%
@@ -77,12 +76,9 @@ y_train = df_train.iloc[:, [8]]
 X_test = df_test.iloc[:, [13,14,16,17]] #with vegetation depth -->5 
 y_test = df_test.iloc[:, [8]]
 
-
 #%%
-
 d= df.iloc[:, [12]]
 pl= df.iloc[:, [8]]
-
 
 #Plot
 plt.scatter(d,pl,s=20)
@@ -93,12 +89,6 @@ plt.ylabel('PL [dB]',fontsize=12)
 plt.savefig('d_PL_V2V.eps',format='eps',dpi=1200)
 plt.show()
 plt.close()
-
-
-
-#%%
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
 
 #normalize inputs
 scaler = StandardScaler()
