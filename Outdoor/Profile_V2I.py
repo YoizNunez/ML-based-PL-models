@@ -11,14 +11,14 @@ from shapely.geometry import LineString
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\SC1_750_Profile_Building.csv"
+path=r"SC1_750_Profile_Building.csv"
 df_building = pd.read_csv(path,header=None)
 df_building.head()
 
 count_values_row = df_building.count(axis='columns')
 
 #%%
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\SC1_750_Tx_Rx.csv"
+path=r"SC1_750_Tx_Rx.csv"
 df_tx_rx = pd.read_csv(path)
 df_tx_rx.head()
 
@@ -43,7 +43,7 @@ for i in range(df_tx_rx['Length'][229]):
     vector_building[i] = df_building.iloc[229][i]
     
 #%%
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\SC1_750_Profile_Vegetation.csv"
+path=r"SC1_750_Profile_Vegetation.csv"
 df_vegetation = pd.read_csv(path,header=None)
 df_vegetation.head()
 
@@ -57,7 +57,7 @@ for i in range(df_tx_rx['Length'][229]):
     
 
 #%%
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\750_SC1_Profile_Ground.csv"
+path=r"750_SC1_Profile_Ground.csv"
 df_ground = pd.read_csv(path,header=None)
 df_ground.head()
 
@@ -70,12 +70,6 @@ for i in range(df_tx_rx['Length'][229]):
     vector_ground[i] = df_ground.iloc[229][i]
 
 #%%
-
-#RX4
-#vector_distance = df10.iloc[:, [0]] #distance --x
-#vector_length = df10.iloc[:, [2]] #heigth of Tx --f
-#vector_building = df10.iloc[:, [1]] #-- g
-
 import matplotlib.gridspec as gridspec
 
 fig = plt.figure(figsize=(12,5))
@@ -92,8 +86,6 @@ ax1.plot([0,958.35,1348.50,1356.50],[53,43,11,9.40], '-',color='red',linewidth=1
 ax1.plot(0, 53, 'o',color='red',markersize=7,markeredgecolor='red',markerfacecolor='white')
 ax1.plot(1356.51, 9.398839950561523, 'o',color='orange',markersize=8,markeredgecolor='orange',markerfacecolor='white')
 
-#plt.plot(0, 50, 'o',color='red')
-#plt.plot(61.79281919, 1, 'o',color='orange')
 
 ax2.plot(vector_distance, vector_ground, '-',color='black')
 ax2.plot(vector_distance, vector_length, '--',color='gray',linewidth=1.5)
@@ -265,11 +257,11 @@ for i in range (len(df_building)):
 
 #%%
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\3.5 GHz\SC2_3500_Profile_Vegetation.csv"
+path=r"SC2_3500_Profile_Vegetation.csv"
 df_vegetation = pd.read_csv(path,header=None)
 df_vegetation.head()
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Profile Building\SC2_3500_Tx_Rx.csv"
+path=r"SC2_3500_Tx_Rx.csv"
 df_tx_rx = pd.read_csv(path)
 df_tx_rx.head()
 
