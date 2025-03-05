@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr 12 10:24:22 2023
-@author: Yoiz Nuñez
-"""
-
 #1 Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
@@ -55,35 +50,34 @@ Reading the CSV files
 """
 
 #SC15
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_15.csv"
+path=r"SC_15.csv"
 df_SC15 = pd.read_csv(path)
 df_SC15.head()
 
 #SC19
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_19.csv"
+path=r"SC_19.csv"
 df_SC19 = pd.read_csv(path)
 df_SC19.head()
 
 #SC20
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_20.csv"
+path=r"SC_20.csv"
 df_SC20 = pd.read_csv(path)
 df_SC20.head()
 
 #SC23
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_23.csv"
+path=r"SC_23.csv"
 df_SC23 = pd.read_csv(path)
 df_SC23.head()
 
 #SC24
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_24.csv"
+path=r"SC_24.csv"
 df_SC24 = pd.read_csv(path)
 df_SC24.head()
 
 #SC27
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\V2I\Dataset Banda Larga\SC_27.csv"
+path=r"SC_27.csv"
 df_SC27 = pd.read_csv(path)
 df_SC27.head()
-
 
 #%%
 
