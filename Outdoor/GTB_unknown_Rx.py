@@ -50,10 +50,7 @@ random.seed(0)
 """
 Read Data
 """
-#path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth.csv"
-#path = r"F:\Medidas TEST\Medidas_Outdoor_Tx-ground.csv"
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path=r"Outdoor_data_vegetationdepth_qgis_final.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -385,7 +382,7 @@ print(fo)
 #%%
 import math
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor Results\CV EM\Test.csv"
+path=r"Test.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -396,7 +393,6 @@ vd=df['vd']
 fslp=df['fslp']
 pl_measured = df['pl'].to_numpy()
 
-
 #ABG
 a=2.29793349331932
 b=63.9109590549251
@@ -404,13 +400,11 @@ g=0.21247699594073
 k=3.97114642573868
 m=0.166650690941781
 
-
 pl_pred=np.arange(0,len(df['f']),dtype=np.float64)
 
 for i in range(len(df['f'])):
     
     pl_pred[i] = 10*a*math.log10(d[i]) + b + 10*g*math.log10(f[i]) + m*vd[i] +k*math.log10(h[i]/d[i])
-
 
 #%%
 MSE = np.square(np.subtract(pl_measured,pl_pred)).mean() #RMSE
@@ -436,14 +430,12 @@ for x in abs_dif:
 SD = math.sqrt(sum_model/(n)) #SD
 print(SD)
 
-
 #%%
 import math
 
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor Results\CV EM\Test.csv"
+path=r"Test.csv"
 df = pd.read_csv(path)
 df.head()
-
 
 f=df['f']
 d=df['d']
@@ -451,7 +443,6 @@ h=df['h']
 vd=df['vd']
 fslp=df['fslp']
 pl_measured = df['pl'].to_numpy()
-
 
 #CIF
 n=0.536869175469791
