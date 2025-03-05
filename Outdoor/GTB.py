@@ -50,10 +50,7 @@ random.seed(0)
 """
 Read Data
 """
-#path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth.csv"
-#path = r"F:\Medidas TEST\Medidas_Outdoor_Tx-ground.csv"
-
-path=r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path=r"Outdoor_data_vegetationdepth_qgis_final.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -129,14 +126,12 @@ for x in abs_dif:
 
 SD_train = math.sqrt(sum_model/(n)) #SD
 
-
 #TESTING
 y_pred_test = gtb_regressor.predict(X_test)
 y_pred_test = y_pred_test.reshape(-1,1)
 
 y_pred_desn_test = scaler.inverse_transform(y_pred_test)
 y_target_desn_test = scaler.inverse_transform(y_test)
-
 
 #Plot
 p1 = max(max(y_target_desn_test), max(y_target_desn_test))
@@ -149,11 +144,9 @@ plt.show()
 MSE = np.square(np.subtract(y_target_desn_test,y_pred_desn_test)).mean()
 RMSE_test = math.sqrt(MSE)
 
-
 R2_test= r2_score(y_target_desn_test,y_pred_desn_test) #R2
 
 MAPE_test = np.mean(np.abs((y_target_desn_test - y_pred_desn_test)/y_target_desn_test))*100 #MAPE
-
 
 n = len(y_pred_desn_test)
 sum_model=0
@@ -175,19 +168,11 @@ print(tabulate(data, headers=["","RMSE ",'MAPE [%]','SD','R^2']))
 data = [['Testing set',RMSE_test, MAPE_test, SD_test,R2_test]]
 print(tabulate(data, headers=["","",'','','']))
 
-
 import pymint #version: 0.2.6
 import pickle
 
-#name of predictors
-
-#'building_depth_3d','d_2d','freq','avg_ground_heigth','delta_h_tx_rx','vegetation_depth_3d','avg_building_heigth'
-
-#'building_depth_3d','d_2d','freq','avg_ground_heigth','delta_h_tx_rx','vegetation_depth_3d','avg_vegetation_heigth','avg_building_heigth','n_vegetation','avg_diffracted_comp','n_building'
-
 features_list=['dist'#,'freq'#,'veg_depth'#,'heigth'
                ]
-   
 X_train_df = pd.DataFrame(X_train, columns = features_list)
    
 gtb_regressor = GradientBoostingRegressor(n_estimators=161, learning_rate=0.1, max_depth=3, min_samples_leaf=2, alpha=0.9, random_state=42, loss='ls', max_features='auto')
@@ -198,7 +183,6 @@ pickle.dump(gtb_regressor, open('gtbmodel_IML.pkl','wb')) #save the model, i.e.,
 gtb = pickle.load(open('gtbmodel_IML.pkl','rb')) #the file is load from the local path. In my case from C:/Users/Yoiz Nuñez
 gtb_model = ('GTB',gtb)
 
-
 #ALE
 explainer_gtb = pymint.InterpretToolkit(gtb_model,X=X_train_df, y=y_train)
 ale_model = explainer_gtb.ale(features=features_list, n_bins=30, n_jobs=1, subsample=1.0, n_bootstrap=1)
@@ -206,8 +190,6 @@ ale_model = explainer_gtb.ale(features=features_list, n_bins=30, n_jobs=1, subsa
 MEC = explainer_gtb.main_effect_complexity(ale_model,max_segments=10)
 
 IAS= explainer_gtb.interaction_strength(ale_model)
-
-#%%
 
 # All predictors
 #predictor dist
@@ -231,7 +213,6 @@ ale_heigth_value_s4 = ale_heigth_value_s4.ravel() #to reduce 1 dim
 ale_heigth_bin_s4 = ale_model.heigth__bin_values.to_masked_array()
 
 #%%
-
 "3 predictors"
 #predictor dist
 ale_dist_value_s3 = ale_model.dist__GTB__ale.to_masked_array()  
@@ -249,7 +230,6 @@ ale_veg_depth_value_s3 = ale_veg_depth_value_s3.ravel() #to reduce 1 dim
 ale_veg_depth_bin_s3 = ale_model.veg_depth__bin_values.to_masked_array()
 
 #%%
-
 "2 predictors"
 #predictor dist
 ale_dist_value_s2 = ale_model.dist__GTB__ale.to_masked_array()  
@@ -262,17 +242,13 @@ ale_freq_value_s2 = ale_freq_value_s2.ravel() #to reduce 1 dim
 ale_freq_bin_s2= ale_model.freq__bin_values.to_masked_array()
 
 #%%
-
 "1 predictors"
 #predictor dist
 ale_dist_value_s1 = ale_model.dist__GTB__ale.to_masked_array()  
 ale_dist_value_s1= ale_dist_value_s1.ravel() #to reduce 1 dim
 ale_dist_bin_s1= ale_model.dist__bin_values.to_masked_array()
 
-
-
-#%%
-
+#%
 import matplotlib.gridspec as gridspec
 import numpy as np
 import matplotlib
@@ -287,7 +263,6 @@ ax2 = fig.add_subplot(spec[0,1]) # row 0 with axes spanning 2 cols on evens
 ax3 = fig.add_subplot(spec[0,2]) # row 0 with axes spanning 2 cols on evens
 ax4 = fig.add_subplot(spec[0,3]) # row 0 with axes spanning 2 cols on evens
 #ax5 = fig.add_subplot(spec[4,0]) # row 0 with axes spanning 2 cols on evens
-
 
 #d
 ax1.plot(ale_dist_bin_s1,ale_dist_value_s1,"+-", label ='1',lw=4,color='blue')
