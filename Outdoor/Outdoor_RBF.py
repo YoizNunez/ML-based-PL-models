@@ -47,7 +47,7 @@ random.seed(0)
 """
 Read Data
 """
-path = r"C:\Users\Yoiz Nuñez\Documents\DOUTORADO 2023\Outdoor_data_vegetationdepth_qgis_final.csv"
+path = r"Outdoor_data_vegetationdepth_qgis_final.csv"
 df = pd.read_csv(path)
 df.head()
 
@@ -161,14 +161,6 @@ print(tabulate(data, headers=["","",'','','']))
 """
 Applying Cross-Validation
 """
-#learning_rate = [0.001,0.01,0.1] #define maximum depth
-
-#alpha = [0.001,0.01,0.1] 
-
-#max_iter = len(learning_rate)*len(alpha)
-
-#iteration = list(range(1,max_iter+1))
-
 length = np.arange(1,10,0.1) # Number of neurons
 
 p = len(length)
